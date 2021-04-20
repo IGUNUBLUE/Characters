@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo&display=swap');
+
+body {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #e6e6e6;
+  font-family: 'Archivo', sans-serif;
+}
+
+input {
+  width: 719px;
+  height: 38px;
+  border: 0px;
+  font-size: 18px;
+  font-family: 'Archivo', sans-serif;
+}
+
+input:focus {
+  outline: none;
+}
+
+.search {
+  width: 726px;
+  height: 40px;
+  margin-top: 15px;
+  border-bottom: 2px solid #b9b9b9;
+}
+
+.bodyPage {
+  box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+    0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+  width: 800px;
+  height: 800px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  padding: 2px;
+  display: grid;
+  grid-template-rows: 56px 746px;
+  justify-items: center;
+}
+
+.content {
+  width: 746px;
+  height: 746px;
+  overflow: hidden scroll;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f0f0f0;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 0px;
+}

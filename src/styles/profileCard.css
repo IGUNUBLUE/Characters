@@ -1,0 +1,46 @@
+h1 {
+  font-size: 40px;
+  margin: 0px;
+}
+
+li {
+  font-size: 18px;
+  color: #555555;
+}
+
+ul {
+  margin-bottom: 0px;
+}
+
+.cardProfile {
+  display: grid;
+  grid-template-columns: 195px 496px 50px;
+  grid-template-rows: 186px;
+  align-items: center;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.imgProfile {
+  width: 130px;
+  height: 130px;
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+  border: 1px solid #e2e2e2;
+  margin-left: 20px;
+}
+
+.add {
+
+  font-size: 45px;
+  margin-bottom: 107px;
+  margin-right: 13px;
+  color: #c2c2c2;
+  font-weight: bold;
+}
+
+.add:hover {
+  cursor: pointer;
+  color: #2a2a2a
+}
