@@ -29,6 +29,13 @@ input:focus {
   border-bottom: 2px solid #b9b9b9;
 }
 
+.searchTag {
+  width: 726px;
+  height: 40px;
+  margin-top: 5px;
+  border-bottom: 2px solid #b9b9b9;
+}
+
 .bodyPage {
   box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
     0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
@@ -38,13 +45,13 @@ input:focus {
   background-color: #ffffff;
   padding: 2px;
   display: grid;
-  grid-template-rows: 56px 746px;
+  grid-template-rows: 57px 47px 687px;
   justify-items: center;
 }
 
 .content {
   width: 746px;
-  height: 746px;
+  height: 698px;
   overflow: hidden scroll;
   border-radius: 15px;
 }

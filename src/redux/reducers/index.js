@@ -1,16 +1,8 @@
-import { GET_DATA, FILTER_DATA } from "../actions/types";
+import { GET_DATA, FILTER_DATA, ADD_TAGS } from "../actions/types";
 
 const initialState = {
-  apiResponse: {
-    data: {
-      students: [],
-    },
-  },
-  filtered: {
-    data: {
-      students: [],
-    },
-  },
+  students: [],
+  filtered: [],
 };
 
 function reducer(state = initialState, action) {
@@ -18,17 +10,19 @@ function reducer(state = initialState, action) {
     case GET_DATA:
       return {
         ...state,
-        apiResponse: action.payload,
+        students: action.payload,
       };
 
     case FILTER_DATA:
       return {
         ...state,
-        filtered: {
-          data: {
-            students: action.payload,
-          },
-        },
+        filtered: action.payload
+      };
+
+      case ADD_TAGS:
+      return {
+        ...state,
+        students: action.payload
       };
 
     default:

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getData, filterData } from "../../redux/actions";
 import { autoCloseMessage } from "../../utils/alertMessages";
@@ -7,8 +7,9 @@ import "../../styles/main.css";
 
 function Main() {
   const dispatch = useDispatch();
-  let data = useSelector((state) => state.apiResponse.data);
-  let filtered = useSelector((state) => state.filtered.data);
+  const [criteria, setCriteria] = useState({ name: "", tag: "" });
+  const students = useSelector((state) => state.students);
+  const filtered = useSelector((state) => state.filtered);
 
   //f5 case
   useEffect(() => {
@@ -16,14 +17,19 @@ function Main() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleSearch(event) {
+  function handleSearch(event, input) {
     let inputValue = event.target.value;
-    if (inputValue === "") {
-      dispatch(getData());
-      dispatch(filterData([]));
+    if (input === "name") {
+      setCriteria({ ...criteria, name: inputValue });
     } else {
+      setCriteria({ ...criteria, tag: inputValue });
+    }
+
+    if (inputValue === "" && criteria.tag === "") {
+      dispatch(filterData([]));
+    } else if (input === "name" && criteria.tag === "") {
       // eslint-disable-next-line array-callback-return
-      let students = data.students.filter(function (student) {
+      let nameFilter = students.filter((student) => {
         let found = `${student.firstName.toLowerCase()}${student.lastName.toLowerCase()}`.includes(
           inputValue
         );
@@ -31,13 +37,23 @@ function Main() {
           return student;
         }
       });
-      if (students.length === 0) {
+      if (nameFilter.length === 0) {
         autoCloseMessage(inputValue);
         event.target.value = "";
         dispatch(filterData([]));
       } else {
-        dispatch(filterData(students));
+        dispatch(filterData(nameFilter));
       }
+    } else if (input === "tag" && criteria.name !== "") {
+      let tagFilter = filtered.filter((student) =>
+        student.tags.join("").includes(inputValue)
+      );
+      dispatch(filterData(tagFilter));
+    } else if (criteria.name === "" && input === "tag") {
+      let tagFilter = students.filter((student) =>
+        student.tags.join("").includes(inputValue)
+      );
+      dispatch(filterData(tagFilter));
     }
   }
 
@@ -45,19 +61,28 @@ function Main() {
     <div className="bodyPage">
       <div className="search">
         <input
+          id="searchName"
           type="text"
           placeholder="Search by name"
-          onChange={(event) => handleSearch(event)}
+          onChange={(event) => handleSearch(event, "name")}
         />
       </div>
-      {data ? (
-        <div className="content" id="content">
-          {filtered.students.length === 0
-            ? data.students.map(function (student) {
-                return <ProfileCard student={student} />;
+      <div className="searchTag">
+        <input
+          id="tagSearch"
+          type="text"
+          placeholder="Search by tag"
+          onChange={(event) => handleSearch(event, "tag")}
+        />
+      </div>
+      {students.length !== 0 ? (
+        <div className="content">
+          {filtered.length === 0
+            ? students.map(function (student) {
+                return <ProfileCard key={student.id} student={student} />;
               })
-            : filtered.students.map(function (student) {
-                return <ProfileCard student={student} />;
+            : filtered.map(function (student) {
+                return <ProfileCard key={student.id} student={student} />;
               })}
         </div>
       ) : (
