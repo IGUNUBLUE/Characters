@@ -4,10 +4,12 @@ import { addTags } from "../../redux/actions";
 import "../../styles/profileCard.css";
 
 export default function ProfileCard(props) {
-  const [classCard, setClassCard] = useState("cardProfile");
-  const [classInfo, setClassInfo] = useState("information");
-  const [viewGrades, setViewGrades] = useState("gradesHidden");
-  const [infoState, setInfoState] = useState("show");
+  const [classCss, setClassCss] = useState({
+    classCard: "cardProfile",
+    classInfo: "information",
+    viewGrades: "gradesHidden",
+    infoState: "show",
+  });
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
   let firstName = props.student.firstName.toUpperCase();
@@ -37,9 +39,9 @@ export default function ProfileCard(props) {
   }
 
   return (
-    <div className={classCard}>
+    <div className={classCss.classCard}>
       <img src={props.student.pic} alt="Profile" className="imgProfile" />
-      <div className={classInfo}>
+      <div className={classCss.classInfo}>
         <h1>{`${firstName} ${lastName}`}</h1>
         <ul>
           <li key="email">Email: {props.student.email}.</li>
@@ -54,7 +56,7 @@ export default function ProfileCard(props) {
                     ).toFixed(2)} %`}
           </li>
         </ul>
-        <ul className={viewGrades}>
+        <ul className={classCss.viewGrades}>
           {props.student.grades.map((grade, i) => {
             return <li key={`test${i}`}>{`Test ${i + 1}: ${grade}%`}</li>;
           })}
@@ -64,7 +66,11 @@ export default function ProfileCard(props) {
             {students
               .filter((item) => item.id === props.student.id)[0]
               ?.tags.map((tag) => {
-                return <span key={tag} className="tag">{tag}</span>;
+                return (
+                  <span key={tag} className="tag">
+                    {tag}
+                  </span>
+                );
               })}
           </span>
         </div>
@@ -75,31 +81,31 @@ export default function ProfileCard(props) {
         />
         <hr />
       </div>
-      {infoState === "show" ? (
+      {classCss.infoState === "show" ? (
         <div
           className="show"
-          onClick={() => {
-            return (
-              setClassCard("cardProfileFull"),
-              setClassInfo("informationFull"),
-              setViewGrades(),
-              setInfoState("hidden")
-            );
-          }}
+          onClick={() =>
+            setClassCss({
+              classCard: "cardProfileFull",
+              classInfo: "informationFull",
+              viewGrades: "",
+              infoState: "hidden",
+            })
+          }
         >
           +
         </div>
       ) : (
         <div
           className="hidden"
-          onClick={() => {
-            return (
-              setClassCard("cardProfile"),
-              setClassInfo("information"),
-              setViewGrades("gradesHidden"),
-              setInfoState("show")
-            );
-          }}
+          onClick={() =>
+            setClassCss({
+              classCard: "cardProfile",
+              classInfo: "information",
+              viewGrades: "gradesHidden",
+              infoState: "show",
+            })
+          }
         >
           -
         </div>
