@@ -48,12 +48,25 @@ function Main() {
       let tagFilter = filtered.filter((student) =>
         student.tags.join("").includes(inputValue)
       );
-      dispatch(filterData(tagFilter));
+      if (tagFilter.length === 0){
+        autoCloseMessage(inputValue);
+        event.target.value = "";
+        dispatch(filterData([]));
+      } else {
+        dispatch(filterData(tagFilter));
+      }
     } else if (criteria.name === "" && input === "tag") {
       let tagFilter = students.filter((student) =>
         student.tags.join("").includes(inputValue)
       );
-      dispatch(filterData(tagFilter));
+      if (tagFilter.length === 0){
+        autoCloseMessage(inputValue);
+        event.target.value = "";
+        dispatch(filterData([]));
+        setCriteria({...criteria, tag: ""})
+      } else {
+        dispatch(filterData(tagFilter));
+      }
     }
   }
 
